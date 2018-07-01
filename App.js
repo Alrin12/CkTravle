@@ -4,55 +4,46 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Platform,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+import {SafeAreaView, createStackNavigator} from 'react-navigation';
+import Intro from './src/components/screens/Intro';
+import {Container, ContainerBackgroundColor} from "./src/components/ui/Theme";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
+  'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+  'Shake or press menu button for dev menu',
 });
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <SafeAreaView style={[Container, ContainerBackgroundColor]}>
+        <RootStack/>
+      </SafeAreaView>
     );
-  }
-}
+  };
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+
+const RootStack = createStackNavigator(
+  {
+    IntroScreen: {screen: Intro},
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  {
+    initialRouteName: 'IntroScreen',
+    headerMode: 'none',
+  }
+);
+
+const style = StyleSheet.create({
+
+})

@@ -37,6 +37,7 @@ export default class App extends Component<Props> {
 const RootStack = createStackNavigator(
   {
     IntroScreen: {screen: Intro},
+    
   },
   {
     initialRouteName: 'IntroScreen',

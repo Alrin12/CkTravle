@@ -13,6 +13,10 @@ export const CenterPositionItem = {
   alignItems: 'center',
 }
 
+export const BottomPositionItem = {
+  justifyContent: 'flex-end',
+}
+
 export const BigCircleLayout = {
   flex: 1,
   borderWidth: 1,

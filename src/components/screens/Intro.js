@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View, Text} from 'react-native';
-import Location from '../Partials/Location';
+import ImageCard from '../partials/ImageCard';
 import {Container, ContainerBackgroundColor} from "../ui/Theme";
 import {store} from "../../stores/store";
 
@@ -15,18 +15,26 @@ export default class Intro extends Component {
   render() {
     return (
       <ScrollView
-        contentContainerStyle={[style.contentContainer, style.centerPosition, ContainerBackgroundColor]}
+        contentContainerStyle={[style.contentContainer, ContainerBackgroundColor]}
+        style={style.header}
       >
-        {
-          this.state.locationImage.map((content, index) => {
-            return (
-              <Location image={content.image}
-                        title={content.name}
-                        key={index}
-              />
-            )
-          })
-        }
+        <View style={style.headerWrapper}>
+          <Text style={style.header}>어디로 떠날까요?</Text>
+        </View>
+        <View style={style.contentWrapper}>
+          {
+            this.state.locationImage.map((content, index) => {
+              return (
+                <ImageCard
+                  image={content.image}
+                  title={content.name}
+                  subtitle={content.subtitle}
+                  key={index}
+                />
+              )
+            })
+          }
+        </View>
       </ScrollView>
     );
   };
@@ -35,11 +43,23 @@ export default class Intro extends Component {
 const style = StyleSheet.create({
   contentContainer: {
     paddingVertical: 20,
+    paddingHorizontal: 20,
   },
 
-  centerPosition: {
+  contentWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  headerWrapper: {
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+
+  header: {
+    fontSize: 30,
+    fontWeight: '500',
+    fontFamily: 'NanumSquareB'
+  }
 
 })

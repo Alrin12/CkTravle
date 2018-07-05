@@ -12,6 +12,10 @@ export default class Intro extends Component {
     }
   };
 
+  navigateToInfoScreen = () => {
+    this.props.navigation.navigate('InfoScreen');
+  }
+
   render() {
     return (
       <ScrollView
@@ -30,6 +34,10 @@ export default class Intro extends Component {
                   title={content.name}
                   subtitle={content.subtitle}
                   key={index}
+                  action={this.navigateToInfoScreen}
+                  width={300}
+                  height={420}
+                  blur={true}
                 />
               )
             })

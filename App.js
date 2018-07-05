@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {SafeAreaView, createStackNavigator} from 'react-navigation';
 import Intro from './src/components/screens/Intro';
+import Info from './src/components/screens/Info';
 import {Container, ContainerBackgroundColor} from "./src/components/ui/Theme";
 
 const instructions = Platform.select({
@@ -37,7 +38,7 @@ export default class App extends Component<Props> {
 const RootStack = createStackNavigator(
   {
     IntroScreen: {screen: Intro},
-    
+    InfoScreen: {screen: Info},
   },
   {
     initialRouteName: 'IntroScreen',

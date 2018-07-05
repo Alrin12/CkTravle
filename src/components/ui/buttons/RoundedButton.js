@@ -7,13 +7,19 @@ export default class RoundedButton extends Component {
     super(props);
     this.state = {
       title: this.props.title,
+      action: this.props.action,
     };
+  };
+
+  actionHandler = () => {
+   this.state.action();
   };
 
   render() {
     return (
       <TouchableOpacity
         style={style.rounded}
+        onPress={this.actionHandler}
       >
         <Text style={style.text}>{this.state.title}</Text>
       </TouchableOpacity>

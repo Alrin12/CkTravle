@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image, ImageBackground, findNodeHandle} from 'react-native';
+import {StyleSheet, View, Text, ImageBackground, findNodeHandle} from 'react-native';
 import {Container, BottomPositionItem} from "../ui/Theme";
 import {BlurView} from 'react-native-blur';
 import RoundedButton from '../ui/buttons/RoundedButton';
@@ -15,8 +15,36 @@ export default class ImageCard extends Component {
       subtitle: this.props.subtitle,
       imageSource: this.props.image,
       viewRef: null,
+      action: this.props.action,
+      width: this.props.width,
+      height: this.props.height,
+      needBlur: this.props.blur,
     };
-    console.log(this.state.imageSource);
+  };
+
+  getContainerSize() {
+    if (this.state.width && this.state.height) {
+      return {
+        width: this.state.width,
+        height: this.state.height,
+      };
+    }
+    else {
+      return {
+        width: 300,
+        height: 420,
+      };
+    }
+  };
+
+  getBlurSize() {
+    if (this.state.needBlur && this.state.width && this.state.height) {
+      return {
+        width: this.state.width,
+        height: this.state.height / 7,
+      }
+    }
+    return null;
   };
 
   imageLoaded() {
@@ -27,7 +55,7 @@ export default class ImageCard extends Component {
     const _title = this.state.title;
     const _length = _title.length;
 
-    if(!_length || _length > RESTRICT_TITLE_LENGTH) {
+    if (!_length || _length > RESTRICT_TITLE_LENGTH) {
       const _string = _title.substring(0, RESTRICT_TITLE_LENGTH - 1) + '...';
       return <Text style={style.title}>{_string}</Text>;
     } else {
@@ -49,35 +77,39 @@ export default class ImageCard extends Component {
 
   render() {
     return (
-      <View style={[Container, style.cardLayout]}>
+      <View style={[Container, style.cardLayout, this.getContainerSize()]}>
         <ImageBackground
           ref={(img) => {
             this.backgroundImage = img
           }}
           resizeMode={'cover'}
-          style={[BottomPositionItem, style.imageLayout]}
+          style={[BottomPositionItem, style.imageLayout, this.getContainerSize()]}
           source={this.state.imageSource}
           onLoadEnd={this.imageLoaded.bind(this)}
         >
-          <BlurView
-            style={style.blurLayout}
-            viewRef={this.state.viewRef}
-            blurType={'light'}
-            blurAmount={25}
-          >
-            <View>
-              {
-                this.renderTitle()
-              }
+          {
+            this.state.needBlur &&
+            <BlurView
+              style={[style.blurLayout, this.getBlurSize()]}
+              viewRef={this.state.viewRef}
+              blurType={'light'}
+              blurAmount={25}
+            >
+              <View>
+                {
+                  this.renderTitle()
+                }
 
-              {
-                this.renderSubtitle()
-              }
-            </View>
-            <RoundedButton
-              title={'자세히보기'}
-            />
-          </BlurView>
+                {
+                  this.renderSubtitle()
+                }
+              </View>
+              <RoundedButton
+                title={'자세히보기'}
+                action={this.state.action}
+              />
+            </BlurView>
+          }
         </ImageBackground>
       </View>
     );
@@ -98,8 +130,8 @@ const style = StyleSheet.create({
   },
 
   cardLayout: {
-    width: 300,
-    height: 400,
+    // width: 300,
+    // height: 400,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -112,8 +144,8 @@ const style = StyleSheet.create({
 
   imageLayout: {
     flex: 1,
-    width: 300,
-    height: 400,
+    // width: 300,
+    // height: 400,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -125,8 +157,8 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 300,
-    height: 60,
+    // width: 300,
+    // height: 60,
     borderWidth: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

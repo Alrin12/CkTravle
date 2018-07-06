@@ -18,9 +18,37 @@ export default class ImageCard extends Component {
       action: this.props.action,
       width: this.props.width,
       height: this.props.height,
+      // Style Configure
       needBlur: this.props.blur,
+      needBorderRadius: this.props.borderRadius,
+      needShadow: this.props.shadow,
     };
   };
+
+  needShadow() {
+    if(this.state.needShadow) {
+      return {
+        shadowOpacity: 1,
+      }
+    } else {
+      return {
+        shadowOpacity: 0,
+      }
+    }
+  };
+
+  needBorderRadius() {
+    if(this.state.needBorderRadius) {
+      return {
+        borderTopLeftRadius: this.state.needBorderRadius,
+        borderTopRightRadius: this.state.needBorderRadius,
+        borderBottomLeftRadius: this.state.needBorderRadius,
+        borderBottomRightRadius: this.state.needBorderRadius
+      }
+    } else {
+      return;
+    }
+  }
 
   getContainerSize() {
     if (this.state.width && this.state.height) {
@@ -77,13 +105,24 @@ export default class ImageCard extends Component {
 
   render() {
     return (
-      <View style={[Container, style.cardLayout, this.getContainerSize()]}>
+      <View style={[
+        Container,
+        style.cardLayout,
+        this.getContainerSize(),
+        this.needBorderRadius(),
+        this.needShadow()
+      ]}>
         <ImageBackground
           ref={(img) => {
             this.backgroundImage = img
           }}
           resizeMode={'cover'}
-          style={[BottomPositionItem, style.imageLayout, this.getContainerSize()]}
+          style={[
+            BottomPositionItem,
+            style.imageLayout,
+            this.getContainerSize(),
+            this.needBorderRadius(),
+          ]}
           source={this.state.imageSource}
           onLoadEnd={this.imageLoaded.bind(this)}
         >
@@ -130,26 +169,13 @@ const style = StyleSheet.create({
   },
 
   cardLayout: {
-    // width: 300,
-    // height: 400,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
     shadowColor: '#9f9f9f',
     shadowOffset: {width: 3, height: 3},
-    shadowOpacity: 1,
     marginBottom: 70,
   },
 
   imageLayout: {
     flex: 1,
-    // width: 300,
-    // height: 400,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
     overflow: 'hidden',
   },
 
@@ -157,13 +183,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // width: 300,
-    // height: 60,
     borderWidth: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
     paddingLeft: 15,
     paddingRight: 15,
     borderColor: 'rgba(0,0,0,0)',

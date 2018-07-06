@@ -1,22 +1,40 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import {Container, ContainerBackgroundColor, CenterPositionItem} from "../ui/Theme";
+import {store} from "../../stores/store";
+import ImageCard from '../partials/ImageCard';
 
 export default class Info extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dummy: store.locationImage,
     };
   };
 
   render() {
-    return(
-      <View style={[Container, ContainerBackgroundColor]}>
+    console.log('hi');
+    return (
+      <ScrollView style={[Container, ContainerBackgroundColor]}>
         <View style={[CenterPositionItem, style.padding]}>
-          <View style={style.smallImageCard}>
-          </View>
+          {
+            this.state.dummy.map((content, index) => {
+              return (
+                <ImageCard
+                  image={content.image}
+                  title={'test'}
+                  subtitle={'test'}
+                  action={null}
+                  key={index}
+                  width={325}
+                  height={200}
+                  blur={false}
+                />
+              )
+            })
+          }
         </View>
-      </View>
+      </ScrollView>
     )
   };
 };

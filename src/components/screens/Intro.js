@@ -38,6 +38,8 @@ export default class Intro extends Component {
                   width={300}
                   height={420}
                   blur={true}
+                  shadow={true}
+                  borderRadius={20}
                 />
               )
             })

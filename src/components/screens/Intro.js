@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View, Text} from 'react-native';
 import ImageCard from '../partials/ImageCard';
-import {Container, ContainerBackgroundColor} from "../ui/Theme";
 import {store} from "../../stores/store";
+// styles
+import {ScrollContainer, ContainerBackgroundColor, headerText, headerWrapper} from "../ui/Theme";
 
 export default class Intro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationImage: store.locationImage,
+      locationImage: store.location,
     }
   };
 
@@ -19,11 +20,10 @@ export default class Intro extends Component {
   render() {
     return (
       <ScrollView
-        contentContainerStyle={[style.contentContainer, ContainerBackgroundColor]}
-        style={style.header}
+        style={[ScrollContainer, ContainerBackgroundColor]}
       >
-        <View style={style.headerWrapper}>
-          <Text style={style.header}>어디로 떠날까요?</Text>
+        <View style={headerWrapper}>
+          <Text style={headerText}>어디로 떠날까요?</Text>
         </View>
         <View style={style.contentWrapper}>
           {
@@ -51,7 +51,7 @@ export default class Intro extends Component {
 };
 
 const style = StyleSheet.create({
-  contentContainer: {
+  scrollContainer: {
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -60,16 +60,4 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  headerWrapper: {
-    paddingTop: 10,
-    paddingBottom: 20,
-  },
-
-  header: {
-    fontSize: 30,
-    fontWeight: '500',
-    fontFamily: 'NanumSquareB'
-  }
-
 })

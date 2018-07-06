@@ -1,21 +1,39 @@
 import {Platform} from "react-native";
 
 export const ContainerBackgroundColor = {
-    backgroundColor: 'white',
+  backgroundColor: 'white',
 };
 
 export const Container = {
   flex: 1, backgroundColor: 'white', flexDirection: 'column',
 };
 
+export const headerWrapper = {
+  paddingTop: 10,
+  paddingBottom: 20,
+};
+
+export const ScrollContainer = {
+  paddingVertical: 20,
+  paddingHorizontal: 20,
+};
+
+export const headerText = {
+  fontSize: 27,
+  fontWeight: '500',
+  fontFamily: 'NanumSquareB'
+};
+
+
+
 export const CenterPositionItem = {
   justifyContent: 'center',
   alignItems: 'center',
-}
+};
 
 export const BottomPositionItem = {
   justifyContent: 'flex-end',
-}
+};
 
 export const BigCircleLayout = {
   flex: 1,
